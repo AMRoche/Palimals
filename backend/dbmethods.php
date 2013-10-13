@@ -64,6 +64,36 @@ if(sizeof($toGetBy) == 0 || sizeof($toUpdate) == 0){
 	return false;
 }
 
+function performQueryMultiple($table, $retrieve) {
+	global $creds;
+	$mysqli = new mysqli($creds["domain"], $creds["username"], $creds["pass"], $creds["db"]);
+	if ($mysqli -> connect_errno) {
+		echo('{"status":false,"response":"Our database borked"}');
+		return false;
+	}
+	$mysqli -> set_charset("utf8");
+		$close = "";
+	foreach ($retrieve as $a => $res) {
+		if (strlen($close) > 0) {
+			$close .= " AND ";
+		}
+		$close .= $a . " LIKE " . '"' . $res . '"';
+	}
+	$query = "SELECT * FROM ".$table." WHERE " . $close;
+	$arr = array();
+	if ($sql = $mysqli -> query($query)) {
+		while($row = mysqli_fetch_array($sql,MYSQL_ASSOC)){
+			array_push($arr,$row);
+		}
+		return $arr;
+		//* free result set */
+//		mysqli_free_result($row);
+	} else {
+		echo('{"status":false,"response":"Our database borked."}');
+		return false;
+	}
+}
+
 function performQuery($table, $retrieve) {
 	global $creds;
 	$mysqli = new mysqli($creds["domain"], $creds["username"], $creds["pass"], $creds["db"]);

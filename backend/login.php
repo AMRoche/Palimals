@@ -4,7 +4,7 @@ require_once ("dbmethods.php");
 
 $recievedCreds = $_GET;
 $results = array();
-if(sizeof($recievedCreds)!=2){
+if(sizeof($recievedCreds)<2){
 	echo('{"status":false,"response":"You didn\'t supply enough info."}');
 	return false;
 }
