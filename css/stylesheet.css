@@ -1,0 +1,82 @@
+.main{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:70%;
+}
+
+.side{
+	position: relative;
+	left:70%;
+	width:30%;
+	overflow: hidden;
+}
+
+.animal .display{
+	float:left;
+	display:block;
+	width:400px;
+	height:400px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: fuchsia;
+}
+
+.main h1{
+	text-align: center;
+}
+
+.main .animal{
+	width:70%;
+	float:left;
+	min-height:900px; /*CHANGE THIS*/
+	border-right:2px solid black;
+}
+
+.main .stats{
+	width:30%;
+	float:left;
+	margin-left:0px;
+	padding-left:0px;
+	min-height:900px; /*CHANGE THIS*/
+	border-right:2px solid black;
+}
+
+.side h1{
+	font-size: 35px;
+	text-align: center;
+}
+
+.stats ul{
+	list-style: none;
+}
+
+#itemlist{
+	min-height:50px;
+	margin-bottom: 5px;
+}
+
+.nav-tabs{
+}
+
+#itemlist ul, #itemlist li{
+	list-style: none;
+	display: inline;
+	margin: 0px;
+	margin-top: 5px;
+	margin-left:5px;
+	padding: 0px;
+}
+
+#itemlist img{
+	border: black 1px solid;
+}
+
+#itemdetails{
+	border-top:2px solid black;	
+	padding-left:10px;
+}
+
+#itemdetails h1{
+	text-align: center;
+}
