@@ -68,7 +68,7 @@ body #signUp #signUpInside .Error {
   margin-left: auto;
   margin-right: auto;
   background-color: white;
-  min-height: 900px;
+  min-height: 700px;
   /*CHANGE THIS*/
 
 }
@@ -95,7 +95,7 @@ body #signUp #signUpInside .Error {
 .main .animal {
   width: 450px;
   float: left;
-  min-height: 900px;
+  min-height: 700px;
   /*CHANGE THIS*/
 
   border-right: 2px solid black;
@@ -106,7 +106,7 @@ body #signUp #signUpInside .Error {
   float: left;
   margin-left: 0px;
   padding-left: 0px;
-  min-height: 900px;
+  min-height: 700px;
   /*CHANGE THIS*/
 
   border-right: 2px solid black;
@@ -160,3 +160,12 @@ dt {
 	margin-right: auto;
 }
 
+/*footer{
+	position:fixed;
+	bottom:0px;
+	width:100%;
+}
+
+footer img{
+	width:50%;
+}*/
