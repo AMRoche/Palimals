@@ -2,12 +2,12 @@
 require_once ("dbreq.php");
 require_once ("dbmethods.php");
 
-$recievedCreds = $_GET;
+$recievedCreds = $_POST;
 $salt = "";
 $queryArr = array();
 
 if (sizeof($recievedCreds) == 0) {
-	echo("{"status":false,"response":"Nothing was supplied."}");
+	echo('{"status":false,"response":"Nothing was supplied."}');
 	return false;
 } else {
 	$salt = randomString();

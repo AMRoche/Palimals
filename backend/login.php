@@ -2,7 +2,7 @@
 require_once ("dbreq.php");
 require_once ("dbmethods.php");
 
-$recievedCreds = $_POST;
+$recievedCreds = $_GET;
 $results = array();
 if(sizeof($recievedCreds)!=2){
 	echo('{"status":false,"response":"You didn\'t supply enough info."}');
@@ -29,7 +29,9 @@ if(inDB("user",$results["username"],"username") != false){
 }else{
 	$resArr = performQuery("user",array("username"=>$results["username"]));
 	if($resArr["password"] == crypt($results["password"], $resArr["salt"])){
-		echo('{"status":true,"response":"Logged In!"}');	
+		$palimals = performQuery("palimal",array("username"=>$results["username"]));
+		updateDB("user",array("username"=>$results["username"]),array("last_login"=>""));
+		echo('{"status":true,"response":"Logged In!","palimals":'.json_encode($palimals).',"user":'.json_encode($resArr).'}');	
 		return true;
 	}
 	else{
