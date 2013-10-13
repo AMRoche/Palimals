@@ -5,8 +5,8 @@ require_once ("dbmethods.php");
 $recievedCreds = $_GET;
 $results = array();
 if(sizeof($_GET)!=2){
-//	echo("{'status':false,'response':'You didn't supply enough info.'}");
-//	return false;
+	echo("{'status':false,'response':'You didn't supply enough info.'}");
+	return false;
 }
 if (!array_key_exists("username", $recievedCreds)) {
 	echo("{'status':false,'response':'You didn't supply a username.'}");	
