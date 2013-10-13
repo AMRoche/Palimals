@@ -21,6 +21,7 @@ window.onload = function(){
 
 		tpht.easyXHR("post","backend/login.php","username="+$("#JS-user").val()+"&password="+$("#JS-password").val(),function(input){
 			console.log(input);
+			input = input.substring(input.split("}")[0].length+1,input.length);
 			var returned = JSON.parse(input);
 			console.log(returned);
 			if(returned.status == true){
@@ -54,7 +55,7 @@ function showContent(content) {
     content.addClass('current');
 }
 console.log("logging");
-//tpht.renderModal({
-//		"type" : "display"
-//		});
+tpht.renderModal({
+		"type" : "display"
+		});
 }
