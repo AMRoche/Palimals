@@ -4,26 +4,26 @@ function updateDB($table,$toGetBy,$toUpdate){
 
 	
 if(sizeof($toGetBy) == 0 || sizeof($toUpdate) == 0){
-		echo("{'status':false,'response':'You didn't supply a password.'}");	
+		echo('{"status":false,"response":"You didn"t supply a password."}');	
 	return false;
 }	
 	global $creds;
 	$mysqli = new mysqli($creds["domain"], $creds["username"], $creds["pass"], $creds["db"]);
 	if ($mysqli -> connect_errno) {
-		echo("{'status':false,'response':'Our database borked.'}");
+		echo('{"status":false,"response":"Our database borked."}');
 		return false;
 	}
 	$mysqli -> set_charset("utf8");
 	if(array_key_exists("username",$toGetBy)){
 		if(inDB("user",$toGetBy["username"],"username") != false){
-			echo("{'status':false,'response':'Your username isn't in the array.'}");	
+			echo('{"status":false,"response":"Your username isn\'t in the array."}');	
 			return false;
 		}
 	}
 
 	if(array_key_exists("password",$toUpdate) && array_key_exists("username",$toGetBy)){
 		$returnArr = performQuery("user",array("username"=>$toGetBy["username"]));
-		var_dump($returnArr);
+	//	var_dump($returnArr);
 		if (CRYPT_SHA512 == 1) {
 			$toUpdate["password"] = crypt($toUpdate["password"], $returnArr["salt"]);
 		}
@@ -52,12 +52,12 @@ if(sizeof($toGetBy) == 0 || sizeof($toUpdate) == 0){
 		}
 	}
 	$query = "UPDATE ".$table." SET ".$updates." WHERE ".$close;
-	echo($query);
+	//echo($query);
 	if ($sql = $mysqli -> query($query)) {
-		echo("{'status':true,'response':'Password Updated!.'}");
+		echo('{"status":true,"response":"Password Updated!."}');
 		return true;
 	} else {
-		echo("{'status':false,'response':'" . $mysqli -> error . "'}");
+		echo('{"status":false,"response":"' . $mysqli -> error . '}');
 		return false;
 	}
 	return false;
@@ -67,7 +67,7 @@ function performQuery($table, $retrieve) {
 	global $creds;
 	$mysqli = new mysqli($creds["domain"], $creds["username"], $creds["pass"], $creds["db"]);
 	if ($mysqli -> connect_errno) {
-		echo("{'status':false,'response':'Our database borked.'}");
+		echo('{"status":false,"response":"Our database borked"}');
 		return false;
 	}
 	$mysqli -> set_charset("utf8");
@@ -91,7 +91,7 @@ function performQuery($table, $retrieve) {
 		//* free result set */
 //		mysqli_free_result($row);
 	} else {
-		echo("{'status':false,'response':'Our database borked.'}");
+		echo('{"status":false,"response":"Our database borked."}');
 		return false;
 	}
 }
@@ -100,7 +100,7 @@ function inDB($table,$input, $type) {
 	global $creds;
 	$mysqli = new mysqli($creds["domain"], $creds["username"], $creds["pass"], $creds["db"]);
 	if ($mysqli -> connect_errno) {
-		echo("{'status':false,'response':'Our database borked.'}");
+		echo('{"status":false,"response":"Our database borked."}');
 		return false;
 	}
 	$mysqli -> set_charset("utf8");
@@ -117,7 +117,7 @@ function inDB($table,$input, $type) {
 		//* free result set */
 		mysqli_free_result($row);
 	} else {
-		echo("{'status':false,'response':'Our database borked.'}");
+		echo('{"status":false,"response":"Our database borked."}');
 		return false;
 	}
 }
@@ -127,7 +127,7 @@ function writeToDB($table,$inputArr) {
 	global $creds;
 	$mysqli = new mysqli($creds["domain"], $creds["username"], $creds["pass"], $creds["db"]);
 	if ($mysqli -> connect_errno) {
-		echo("{'status':false,'response':'Our database borked.'}");
+		echo('{"status":false,"response":"Our database borked"}');
 		return false;
 	}
 	$mysqli -> set_charset("utf8");
@@ -150,10 +150,10 @@ function writeToDB($table,$inputArr) {
 		}
 	}
 	if ($sql = $mysqli -> query("INSERT INTO " . $table . " (" . $categories . ") VALUES (" . $values . ")")) {
-		echo("{'status':true,'response':'You've got an account!.'}");
+		echo('{"status":true,"response":"You\'ve got an account!."}');
 		return true;
 	} else {
-		echo("{'status':false,'response':'" . $mysqli -> error . "'}");
+		echo('{"status":false,"response":"' . $mysqli -> error . '"}');
 		return false;
 
 	}

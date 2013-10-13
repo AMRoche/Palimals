@@ -5,18 +5,18 @@ require_once ("dbmethods.php");
 $recievedCreds = $_GET;
 $results = array();
 if(sizeof($_GET)!=2){
-	echo("{'status':false,'response':'You didn't supply enough info.'}");
+	echo('{"status":false,"response":"You didn\'t supply enough info."}');
 	return false;
 }
 if (!array_key_exists("username", $recievedCreds)) {
-	echo("{'status':false,'response':'You didn't supply a username.'}");	
+	echo('{"status":false,"response":"You didn\'t supply a username."}');	
 	return false;
 }
 else{
 	$results["username"] = $recievedCreds["username"];
 }
 if (!array_key_exists("password", $recievedCreds)) {
-	echo("{'status':false,'response':'You didn't supply a password.'}");	
+	echo('{"status":false,"response":"You didn\'t supply a password."}');	
 }
 else{
 	$results["password"] = $recievedCreds["password"];

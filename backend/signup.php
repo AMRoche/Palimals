@@ -7,7 +7,7 @@ $salt = "";
 $queryArr = array();
 
 if (sizeof($recievedCreds) == 0) {
-	echo("{'status':false,'response':'Nothing was supplied.'}");
+	echo("{"status":false,"response":"Nothing was supplied."}");
 	return false;
 } else {
 	$salt = randomString();
@@ -28,7 +28,7 @@ if (array_key_exists("email", $recievedCreds)) {
 if (array_key_exists("email", $recievedCreds)) {
 	$queryArr["email"] = $recievedCreds["email"];
 } else {
-	echo("{'status':false,'response':'Your email wasn't supplied.'}");
+	echo('{"status":false,"response":"Your email wasn\'t supplied."}');
 	return false;
 }
 if (array_key_exists("email_bool", $recievedCreds)) {
@@ -39,14 +39,14 @@ if (array_key_exists("email_bool", $recievedCreds)) {
 $queryArr["money"] = 0;
 $queryArr["last_login"] = time();
 if (!array_key_exists("username", $queryArr)) {
-	echo("{'status':false,'response':'Your username was not supplied.'}");
+	echo('{"status":false,"response":"Your username was not supplied."}');
 	return false;
 }
 if (inDB("user",$queryArr["username"], "username") == false) {
-	echo("{'status':false,'response':'Your username already exists.'}");
+	echo('{"status":false,"response":"Your username already exists."}');
 	return false;
 } else if(inDB("user",$queryArr["email"], "email") == false){
-		echo("{'status':false,'response':'Your email address already exists.'}");
+		echo('{"status":false,"response":"Your email address already exists."}');
 	return false;
 }else{
 	writeToDB("user",$queryArr);

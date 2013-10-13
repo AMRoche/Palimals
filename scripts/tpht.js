@@ -75,7 +75,7 @@ var tpht = {
 	},
 	"renderModal" : function(opts) {
 		/*	{
-		"type" : "dialog",
+		"type" : "dialog","display"
 		"message" : "<strong>Warning!</strong><p>The file is already being edited and has been since " + new Date(parseInt(response.data.timestamp, 10)) + "</p>" + "<p>If you are sure you want to edit anyways, click \"Confirm\".</p>",
 		"confirm" : function() {
 		commandSend("force", "post", function() {
@@ -87,37 +87,42 @@ var tpht = {
 		var content = document.getElementById("modalInside");
 		var textIn = document.createElement("div");
 		textIn.setAttribute("id", "modalText");
-		if (opts.type == "dialog") {
+		if (opts.type == "dialog" || opts.type == "display") {
+			
 			console.log(opts.message);
+			if(opts.type!="display"){
 			textIn.innerHTML = opts.message;
 			content.appendChild(textIn);
+			}
 			console.log("appended");
-			var confirm = document.createElement("input");
-			confirm.setAttribute("type", "button");
-			confirm.setAttribute("class", "btn btn-large btn-success");
-			confirm.setAttribute("id", "modalConfirm");
-			confirm.setAttribute("value", "Confirm");
-			confirm.onclick = function() {
-				opts.confirm();
+			if (opts.type != "display") {
+				var confirm = document.createElement("input");
+				confirm.setAttribute("type", "button");
+				confirm.setAttribute("class", "btn btn-large btn-success");
+				confirm.setAttribute("id", "modalConfirm");
+				confirm.setAttribute("value", "Confirm");
+				confirm.onclick = function() {
+					opts.confirm();
+					document.getElementById("modalDialogue").style.display = "none";
+					document.getElementById("modalInside").innerHTML = "";
+				}
+				content.appendChild(confirm);
+			}
+		} else if (opts.type != "dialog") {
+			content.appendChild(textIn);
+		}
+		if (opts.type != "display") {
+			var decline = document.createElement("input");
+			decline.setAttribute("type", "button");
+			decline.setAttribute("class", "btn btn-large btn-danger");
+			decline.setAttribute("id", "modalDeny");
+			decline.setAttribute("value", "Dismiss");
+			decline.onclick = function() {
 				document.getElementById("modalDialogue").style.display = "none";
 				document.getElementById("modalInside").innerHTML = "";
 			}
-			content.appendChild(confirm);
+			content.appendChild(decline);
 		}
-		else if (opts.type!= "dialog"){
-			content.appendChild(textIn);
-		}
-		var decline = document.createElement("input");
-		decline.setAttribute("type", "button");
-		decline.setAttribute("class", "btn btn-large btn-danger");
-		decline.setAttribute("id", "modalDeny");
-		decline.setAttribute("value", "Dismiss");
-		decline.onclick = function() {
-			document.getElementById("modalDialogue").style.display = "none";
-			document.getElementById("modalInside").innerHTML = "";
-		}
-		content.appendChild(decline);
-
 		document.getElementById("modalDialogue").style.display = "block";
 
 	},
@@ -159,6 +164,7 @@ var tpht = {
 		}
 		if (type.toLowerCase() == "post") {
 			console.log("post");
+			console.log(args);
 			var xhReq = new XMLHttpRequest();
 			xhReq.open("POST", url, true);
 			xhReq.onreadystatechange = function() {
@@ -176,7 +182,7 @@ var tpht = {
 			};
 			xhReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			console.log("argument=" + JSON.stringify(args));
-			xhReq.send("argument=" + JSON.stringify(args));
+			xhReq.send(args);
 
 		}
 
@@ -344,7 +350,6 @@ Math.toDegrees = function(angle) {
 Math.toRadians = function(angle) {
 	return angle * (Math.PI / 180);
 }
-
 if (!document.getElementsByClassName) {
 	document.getElementsByClassName = function(search) {
 		var d = document, elements, pattern, i, results = [];
@@ -369,25 +374,29 @@ if (!document.getElementsByClassName) {
 		return results;
 	}
 }
-if(!Array.indexOf){
-            Array.prototype.indexOf = function(obj){
-                for(var i=0; i<this.length; i++){
-                    if(this[i]==obj){
-                        return i;
-                    }
-                }
-                return -1;
-            }
-        }
-
-if ( !window.Element )
-{
-	console.log("OLOLFOUND");
-        Element = function(){}
-
-        Element.prototype.getElementsByClassName = document.getElementsByClassName;
+if (!Array.indexOf) {
+	Array.prototype.indexOf = function(obj) {
+		for (var i = 0; i < this.length; i++) {
+			if (this[i] == obj) {
+				return i;
+			}
+		}
+		return -1;
+	}
 }
 
+if (!window.Element) {
+	console.log("OLOLFOUND");
+	Element = function() {
+	}
 
-Date.now = Date.now || function() { return +new Date; };
-String.prototype.trim=function(){return this.replace(/^\s+|\s+$/g, '');};
+	Element.prototype.getElementsByClassName = document.getElementsByClassName;
+}
+
+Date.now = Date.now ||
+function() {
+	return +new Date;
+};
+String.prototype.trim = function() {
+	return this.replace(/^\s+|\s+$/g, '');
+}; 
