@@ -41,20 +41,21 @@ if(sizeof($toGetBy) == 0 || sizeof($toUpdate) == 0){
 		if (strlen($updates) > 0) {
 			$updates .= " , ";
 		}
-		if (gettype($res) == "string" && $res != "true" && $res != "false") {
+		if (gettype($res) == "string" && $res != "true" && $res != "false" && $a!="last_login") {
 			$updates .= $a.'="' . $mysqli -> real_escape_string($res) . '"';
 		} else {
 			if ($a == "last_login") {
-				$updates .=$a."=CURRENT_TIMESTAMP";
+				$updates .=$a."= CURRENT_TIMESTAMP";
 			} else {
 				$updates .= $a."=".$val;
 			}
 		}
 	}
+	
 	$query = "UPDATE ".$table." SET ".$updates." WHERE ".$close;
 	//echo($query);
 	if ($sql = $mysqli -> query($query)) {
-		echo('{"status":true,"response":"Password Updated!."}');
+		echo('{"status":true,"response":"Value Updated!."}');
 		return true;
 	} else {
 		echo('{"status":false,"response":"' . $mysqli -> error . '}');

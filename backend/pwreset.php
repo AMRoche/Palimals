@@ -2,9 +2,9 @@
 require_once ("dbreq.php");
 require_once ("dbmethods.php");
 
-$recievedCreds = $_GET;
+$recievedCreds = $_POST;
 $results = array();
-if(sizeof($_GET)!=2){
+if(sizeof($_POST)<2){
 	echo('{"status":false,"response":"You didn\'t supply enough info."}');
 	return false;
 }
