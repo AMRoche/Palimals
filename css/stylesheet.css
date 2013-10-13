@@ -27,20 +27,26 @@ body #signUp #signUpInside {
   margin: 0 auto;
   margin-top: 100px;
 }
-body #modalDialogue #modalInside .loginElement label,
-body #signUp #signUpInside .loginElement label {
+body #reset #resetInside {
+  position: relative;
+  width: 600px;
+  height: 450px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+body #modalDialogue #modalInside .loginElement label {
   float: right;
 }
 body #signUp #signUpInside label.optin {
   margin: 15px 0 0 10px;
 }
-body #modalDialogue #modalInside .loginElement,
-body #signUp #signUpInside .loginElement {
+body #modalDialogue #modalInside .loginElement {
   width: 300px;
   margin: 0 auto;
 }
 body #modalDialogue #modalInside #JS-signup,
-body #signUp #signUpInside #JS-signup {
+body #signUp #signUpInside #JS-signup,
+body #reset #resetInside #JS-reset {
   float: left;
   position: absolute;
   bottom: 20px;
@@ -57,7 +63,8 @@ body #signUp #signUpInside #JS-login {
   right: 20px;
 }
 body #modalDialogue #modalInside .Error,
-body #signUp #signUpInside .Error {
+body #signUp #signUpInside .Error,
+body #reset #resetInside .Error {
   float: left;
   margin-top: 15px;
   display: none;
@@ -154,9 +161,8 @@ dt {
   margin-left: auto;
   margin-right: auto;
 }
-.paypal-button{
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+.paypal-button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
-

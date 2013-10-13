@@ -79,6 +79,45 @@ window.onload = function(){
 		})
 	});
 
+	$('#reset #JS-reset').bind("click",function(){
+		//errorChecking
+		if($("#JS-user").val().length==0){
+			$("#JS-user-error").css("display","inline");
+			return false;
+		}
+		else{
+			$("#JS-user-error").css("display","none");
+		}
+		
+		if($("#JS-password").val().length==0){
+			$("#JS-password-error").css("display","inline");
+			return false;
+		}
+		else{
+			$("#JS-password-error").css("display","none");
+		}
+
+		if (/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}/.test($("#JS-email").val()) == false || $("#JS-email").val().length == 0) {
+			$("#JS-email-error").css("display","inline");
+			return false;
+		} else{
+			$("#JS-email-error").css("display","none");
+		}
+
+		tpht.easyXHR("post","backend/pwreset.php","username="+$("#JS-user").val()+"&password="+$("#JS-password").val()+"&email="+$("#JS-email").val(),function(input){
+			console.log(input);
+			var returned = JSON.parse(input);
+			console.log(returned);
+			if(returned.status == true){
+				window.location = "index.html";
+			}
+			else{
+				alert("Error: "+returned.response);
+				return false;
+			}			
+		})
+	});
+
     $('#coal, #axe, #blackberry, #cake').hide();
     showContent($('#axe:not(:visible)'));
 $('.items').click(function() {
