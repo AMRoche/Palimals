@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_login` datetime NOT NULL,
   `salt` char(64) NOT NULL,
   `money` int(10) NOT NULL,
+  `resetLink` varchar(64),
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

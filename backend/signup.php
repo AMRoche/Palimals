@@ -42,14 +42,14 @@ if (!array_key_exists("username", $queryArr)) {
 	echo("{'status':false,'response':'Your username was not supplied.'}");
 	return false;
 }
-if (inDB($queryArr["username"], "username") == false) {
+if (inDB("user",$queryArr["username"], "username") == false) {
 	echo("{'status':false,'response':'Your username already exists.'}");
 	return false;
-} else if(inDB($queryArr["email"], "email") == false){
+} else if(inDB("user",$queryArr["email"], "email") == false){
 		echo("{'status':false,'response':'Your email address already exists.'}");
 	return false;
 }else{
-	writeToDB($queryArr, "user");
+	writeToDB("user",$queryArr);
 }
 
 

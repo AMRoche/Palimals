@@ -17,17 +17,17 @@ else{
 }
 if (!array_key_exists("password", $recievedCreds)) {
 	echo("{'status':false,'response':'You didn't supply a password.'}");	
-//	return false;
+	return false;
 }
 else{
 	$results["password"] = $recievedCreds["password"];
 }
 
-if(inDB($results["username"],"username") != false){
+if(inDB("user",$results["username"],"username") != false){
 	echo("{'status':false,'response':'Your username isn't in the array.'}");	
 	return false;
 }else{
-	$resArr = performQuery(array("username"=>$results["username"]));
+	$resArr = performQuery("user",array("username"=>$results["username"]));
 	if($resArr["password"] == crypt($results["password"], $resArr["salt"])){
 		echo("{'status':true,'response':'Logged In!'}");	
 		return true;

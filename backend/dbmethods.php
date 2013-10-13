@@ -1,5 +1,69 @@
 <?php
-function performQuery($retrieve) {
+function updateDB($table,$toGetBy,$toUpdate){
+	//UPDATE table_name SET field1=new-value1, field2=new-value2 [WHERE Clause]
+
+	
+if(sizeof($toGetBy) == 0 || sizeof($toUpdate) == 0){
+		echo("{'status':false,'response':'You didn't supply a password.'}");	
+	return false;
+}	
+	global $creds;
+	$mysqli = new mysqli($creds["domain"], $creds["username"], $creds["pass"], $creds["db"]);
+	if ($mysqli -> connect_errno) {
+		echo("{'status':false,'response':'Our database borked.'}");
+		return false;
+	}
+	$mysqli -> set_charset("utf8");
+	if(array_key_exists("username",$toGetBy)){
+		if(inDB("user",$toGetBy["username"],"username") != false){
+			echo("{'status':false,'response':'Your username isn't in the array.'}");	
+			return false;
+		}
+	}
+
+	if(array_key_exists("password",$toUpdate) && array_key_exists("username",$toGetBy)){
+		$returnArr = performQuery("user",array("username"=>$toGetBy["username"]));
+		var_dump($returnArr);
+		if (CRYPT_SHA512 == 1) {
+			$toUpdate["password"] = crypt($toUpdate["password"], $returnArr["salt"]);
+		}
+	}
+	$close = "";
+	foreach ($toGetBy as $a => $res) {
+		if (strlen($close) > 0) {
+			$close .= " AND ";
+		}
+		$close .= $a . " LIKE " . '"' . $res . '"';
+	}
+	
+	$updates = "";
+	foreach ($toUpdate as $a => $res) {
+		if (strlen($updates) > 0) {
+			$updates .= " , ";
+		}
+		if (gettype($res) == "string" && $res != "true" && $res != "false") {
+			$updates .= $a.'="' . $mysqli -> real_escape_string($res) . '"';
+		} else {
+			if ($a == "last_login") {
+				$updates .=$a."=CURRENT_TIMESTAMP";
+			} else {
+				$updates .= $a."=".$val;
+			}
+		}
+	}
+	$query = "UPDATE ".$table." SET ".$updates." WHERE ".$close;
+	echo($query);
+	if ($sql = $mysqli -> query($query)) {
+		echo("{'status':true,'response':'Password Updated!.'}");
+		return true;
+	} else {
+		echo("{'status':false,'response':'" . $mysqli -> error . "'}");
+		return false;
+	}
+	return false;
+}
+
+function performQuery($table, $retrieve) {
 	global $creds;
 	$mysqli = new mysqli($creds["domain"], $creds["username"], $creds["pass"], $creds["db"]);
 	if ($mysqli -> connect_errno) {
@@ -14,7 +78,7 @@ function performQuery($retrieve) {
 		}
 		$close .= $a . " LIKE " . '"' . $res . '"';
 	}
-	$query = "SELECT * FROM user WHERE " . $close;
+	$query = "SELECT * FROM ".$table." WHERE " . $close;
 	$arr = array();
 	if ($sql = $mysqli -> query($query)) {
 		while($row = mysqli_fetch_array($sql,MYSQL_ASSOC)){
@@ -32,7 +96,7 @@ function performQuery($retrieve) {
 	}
 }
 
-function inDB($input, $type) {
+function inDB($table,$input, $type) {
 	global $creds;
 	$mysqli = new mysqli($creds["domain"], $creds["username"], $creds["pass"], $creds["db"]);
 	if ($mysqli -> connect_errno) {
@@ -41,7 +105,7 @@ function inDB($input, $type) {
 	}
 	$mysqli -> set_charset("utf8");
 	$stupidThing = $mysqli -> real_escape_string($input);
-	if ($sql = $mysqli -> query("SELECT COUNT(*) FROM user WHERE " . $type . " LIKE '" . $stupidThing . "'")) {
+	if ($sql = $mysqli -> query("SELECT COUNT(*) FROM ".$table." WHERE " . $type . " LIKE '" . $stupidThing . "'")) {
 		$row = mysqli_fetch_row($sql);
 		if ($row[0] == "0") {
 			$mysqli -> close();
@@ -58,7 +122,7 @@ function inDB($input, $type) {
 	}
 }
 
-function writeToDB($inputArr, $table) {
+function writeToDB($table,$inputArr) {
 
 	global $creds;
 	$mysqli = new mysqli($creds["domain"], $creds["username"], $creds["pass"], $creds["db"]);
