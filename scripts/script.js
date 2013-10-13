@@ -54,7 +54,7 @@ function showContent(content) {
     content.addClass('current');
 }
 console.log("logging");
-tpht.renderModal({
-		"type" : "display"
-		});
+//tpht.renderModal({
+//		"type" : "display"
+//		});
 }
