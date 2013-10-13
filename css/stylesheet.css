@@ -1,14 +1,24 @@
-.main{
-	position:absolute;
-	left:0px;
-	top:0px;
-	width:70%;
+body{
+background-color: #ECF0F1;
 }
 
+.allthecontent{
+	width:1050px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+	min-height:900px; /*CHANGE THIS*/
+}
+
+.main{
+	width:700px;
+	clear:both;
+}
+
+
 .side{
-	position: relative;
-	left:70%;
-	width:30%;
+	width:350px;
 	overflow: hidden;
 }
 
@@ -17,7 +27,7 @@
 	display:block;
 	width:400px;
 	height:400px;
-	margin-left: auto;
+	margin-left:auto;
 	margin-right: auto;
 	background-color: fuchsia;
 }
@@ -27,14 +37,15 @@
 }
 
 .main .animal{
-	width:70%;
+	width:450px;
 	float:left;
 	min-height:900px; /*CHANGE THIS*/
 	border-right:2px solid black;
+	text-align: center;
 }
 
 .main .stats{
-	width:30%;
+	width:250px;
 	float:left;
 	margin-left:0px;
 	padding-left:0px;
@@ -79,4 +90,11 @@
 
 #itemdetails h1{
 	text-align: center;
+}
+
+#buttonid{
+	width:100px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
