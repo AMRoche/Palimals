@@ -45,7 +45,10 @@ body #modalDialogue #modalInside #JS-login{
 }
 body #modalDialogue #modalInside .Error{
 float:left;
+margin-top: 15px;
+display:none;
 }
+
 .allthecontent{
 	width:1050px;
 	display: block;

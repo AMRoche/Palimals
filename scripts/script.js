@@ -3,12 +3,32 @@
 window.onload = function(){
 	$('#JS-login').bind("click",function(){
 		//errorChecking
+		if($("#JS-user").val().length==0){
+			$("#JS-user-error").css("display","inline");
+			return false;
+		}
+		else{
+			$("#JS-user-error").css("display","none");
+		}
+		
+		if($("#JS-password").val().length==0){
+			$("#JS-password-error").css("display","inline");
+			return false;
+		}
+		else{
+			$("#JS-password-error").css("display","none");
+		}
+
 		tpht.easyXHR("post","backend/login.php","username="+$("#JS-user").val()+"&password="+$("#JS-password").val(),function(input){
 			console.log(input);
 			var returned = JSON.parse(input);
 			console.log(returned);
 			if(returned.status == true){
 				$("#modalDialogue").css("display","none");
+			}
+			else{
+				$("#JS-credentials-error").css("display","inline");
+				return false;
 			}			
 		})
 	});
